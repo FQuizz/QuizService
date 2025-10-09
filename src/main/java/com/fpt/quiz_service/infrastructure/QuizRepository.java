@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RestController
-@ResponseBody
 @FeignClient(name = "quizzes", url = "http://localhost:8080")
-public interface QuizOperation {
+public interface QuizRepository {
     @GetMapping("/quizzes")
     List<Quiz> getAllQuizzes();
     @GetMapping("/quizzes/{quizId}")

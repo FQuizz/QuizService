@@ -1,8 +1,8 @@
 package com.fpt.quiz_service;
 
 import com.fpt.quiz_service.entity.Quiz;
-import com.fpt.quiz_service.infrastructure.QuestionOperation;
-import com.fpt.quiz_service.infrastructure.QuizOperation;
+import com.fpt.quiz_service.infrastructure.QuestionRepository;
+import com.fpt.quiz_service.infrastructure.QuizRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,8 +15,8 @@ import java.util.*;
 @RequiredArgsConstructor
 @EnableFeignClients
 public class QuizServiceApplication implements CommandLineRunner {
-	private final QuizOperation quizService;
-	private final QuestionOperation questionService;
+	private final QuizRepository quizService;
+	private final QuestionRepository questionService;
 	public static void main(String[] args) {
 		SpringApplication.run(QuizServiceApplication.class, args);
 	}

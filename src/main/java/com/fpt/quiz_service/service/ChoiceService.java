@@ -6,6 +6,7 @@ import com.fpt.quiz_service.entity.Choice;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ChoiceService {
@@ -28,7 +29,7 @@ public interface ChoiceService {
      * @return a created choice
      */
     @PostMapping("/questions/{questionId}/choices")
-    Choice createChoice(@PathVariable UUID questionId, @RequestBody CreateChoiceRequest request);
+    Optional<Choice> createChoice(@PathVariable UUID questionId, @RequestBody CreateChoiceRequest request);
 
     /**
      * feat: update a choice
@@ -39,7 +40,7 @@ public interface ChoiceService {
      * @return an updated choice
      */
     @PutMapping("/choices/{choiceId}")
-    Choice updateChoice(@PathVariable UUID choiceId, @RequestBody UpdateChoiceRequest request);
+    Optional<Choice> updateChoice(@PathVariable UUID choiceId, @RequestBody UpdateChoiceRequest request);
 
     /**
      * feat: delete a choice

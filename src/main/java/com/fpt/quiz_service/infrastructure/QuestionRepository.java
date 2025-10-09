@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @FeignClient(name = "questions",url = "http://localhost:8080")
-public interface QuestionOperation {
+public interface QuestionRepository {
     @GetMapping("/quizzes/{quizId}/questions")
     List<Question> getAllQuestions(@PathVariable UUID quizId);
     @GetMapping("/questions/{questionId}")

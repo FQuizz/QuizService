@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-public interface ChoiceOperation {
+public interface ChoiceRepository {
     @GetMapping("/questions/{questionId}/choices")
     List<Choice> getAllChoices(@PathVariable UUID questionId);
     @PostMapping("/questions/{questionId}/choices")
