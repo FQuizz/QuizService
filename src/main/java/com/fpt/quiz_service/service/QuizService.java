@@ -30,12 +30,22 @@ public interface QuizService {
     List<Quiz> getAllQuizByAdminId(@PathVariable Long adminId);
 
     /**
+     * feat: get a public quiz
+     * actor: user, admin
+     *
+     * @param quizId quiz's identity
+     * @return a quiz have the given identity
+     */
+    @GetMapping("/quizzes/{quizId}")
+    Quiz getQuizById(@PathVariable UUID quizId);
+
+    /**
      * feat: get a quiz with specific identity
      * actor: admin
      *
      * @param adminId admin's identity
      * @param quizId quiz's identity
-     * @return a quiz have given identity
+     * @return a quiz have the given identity
      */
     @GetMapping("/admins/{adminId}/quizzes/{quizId}")
     Quiz getQuizById(@PathVariable Long adminId, @PathVariable UUID quizId);
@@ -58,10 +68,9 @@ public interface QuizService {
      * @param adminId admin's identity
      * @param quizId quiz's identity
      * @param request details of quiz will be updated
-     * @return the updated quiz
      */
     @PutMapping("/admins/{adminId}/quizzes/{quizId}")
-    Quiz updateQuiz(@PathVariable Long adminId, @PathVariable UUID quizId, @RequestBody UpdateQuizRequest request);
+    void updateQuiz(@PathVariable Long adminId, @PathVariable UUID quizId, @RequestBody UpdateQuizRequest request);
 
     /**
      * feat: change a quiz visibility
