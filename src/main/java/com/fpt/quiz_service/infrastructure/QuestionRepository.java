@@ -5,18 +5,19 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-@FeignClient(name = "questions",url = "http://localhost:8080")
+@FeignClient(name = "questions", url = "http://localhost:8080")
 public interface QuestionRepository {
-    @GetMapping("/quizzes/{quizId}/questions")
-    List<Question> getAllQuestions(@PathVariable UUID quizId);
-    @GetMapping("/questions/{questionId}")
-    Question getQuestion(@PathVariable UUID questionId);
-    @PostMapping("/quizzes/{quizId}/questions")
-    Question addQuestion(@PathVariable UUID quizId, @RequestBody Question question);
-    @PutMapping("/questions/{questionId}")
-    Question editQuestion(@PathVariable UUID questionId, @RequestBody Question question);
-    @DeleteMapping("/questions/{questionId}")
+    @GetMapping("/get-all-questions-in-quiz/{id}")
+    List<Question> getQuestionsInQuiz(@PathVariable Long id);
+    @GetMapping("/get-all-questions/{adminId}")
+    List<Question> getAllQuestions(@PathVariable Long adminId);
+    @PostMapping("/create-question")
+    Optional<Question> createQuestion( @RequestBody Question question);
+    @PutMapping("/update-question/{questionId}")
+    Optional<Question> updateQuestion(@PathVariable UUID questionId, @RequestBody Question question);
+    @DeleteMapping("/delete-question/{questionId}")
     void deleteQuestion(@PathVariable UUID questionId);
 }

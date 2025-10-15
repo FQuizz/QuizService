@@ -1,5 +1,6 @@
 package com.fpt.quiz_service.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Builder
 public class Attempt {
     private UUID id;
-    private Long userId;
+    private String username;
     private LocalDateTime startAt;
     private LocalDateTime completeAt;
     private Integer score;

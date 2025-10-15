@@ -5,22 +5,25 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @FeignClient(name = "quizzes", url = "http://localhost:8080")
 public interface QuizRepository {
-    @GetMapping("/quizzes/{quizId}")
-    Quiz getQuizById(@PathVariable  UUID quizId);
-    @GetMapping("/quizzes")
-    List<Quiz> getAllPublicQuiz();
-    @GetMapping("/admins/{adminId}/quizzes")
-    List<Quiz> getAllQuizByAdminId(@PathVariable Long adminId);
-    @GetMapping("/admins/{adminId}/quizzes/{quizId}")
-    Quiz getQuizById(@PathVariable Long adminId, @PathVariable UUID quizId);
-    @PostMapping("/quizzes")
-    Quiz createQuiz(@RequestBody Quiz quiz);
-    @PutMapping("/quizzes/{quizId}")
-    void editQuiz(@PathVariable UUID quizId, @RequestBody Quiz quiz);
-    @DeleteMapping("/quizzes/{quizId}")
-    void deleteQuizById(@PathVariable UUID quizId);
+    @GetMapping("/get-all-public-quizzes")
+    List<Quiz> getAllPublicQuizzes();
+    @GetMapping("/get-all-quizzes/{adminId}")
+    List<Quiz> getAllQuizzes(@PathVariable Long adminId);
+    @GetMapping("/get-quiz-by-quiz-id/{quizId}")
+    Optional<Quiz> getQuizByQuizId(@PathVariable UUID quizId);
+    @PostMapping("/create-quiz")
+    Optional<Quiz> createQuiz(@RequestBody Quiz quiz);
+    @PostMapping("/add-question/{quizId}/{questionId}")
+    void addQuestion(@PathVariable UUID quizId, @PathVariable UUID questionId);
+    @PutMapping("/update-quiz/{quizId}")
+    Optional<Quiz> updateQuiz(@PathVariable UUID quizId, @RequestBody Quiz quiz);
+    @DeleteMapping("/delete-quiz/{quizId}")
+    void deleteQuiz(@PathVariable UUID quizId);
+    @DeleteMapping("/delete-question/{quizId}/{questionId}")
+    void deleteQuestion(@PathVariable Long quizId, @PathVariable Long questionId);
 }
