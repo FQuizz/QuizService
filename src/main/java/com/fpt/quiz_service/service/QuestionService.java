@@ -20,7 +20,7 @@ public interface QuestionService {
     @GetMapping("admins/{adminId}/questions")
     List<Question> getAllQuestionByAdmin(@PathVariable Long adminId);
 
-    @PostMapping("/admins/{adminId}/questions/questions")
+    @PostMapping("/admins/{adminId}/questions")
     Optional<Question> createQuestion(@PathVariable Long adminId, @RequestBody CreateQuestionRequest request);
 
     /**
