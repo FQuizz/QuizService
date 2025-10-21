@@ -35,11 +35,10 @@ public interface AnswerService {
      * actor: user
      *
      * @param attemptId attempt's identity
-     * @param request details of a created answer
      * @return a created answer
      */
     @PostMapping("/attempts/{attemptId}/answers")
-    Optional<Answer> createAnswer(@PathVariable UUID attemptId, @RequestBody CreateAnswerRequest request);
+    Optional<Answer> createAnswer(@PathVariable UUID attemptId, @RequestParam UUID questionId, @RequestParam List<UUID> choiceIds);
 
     /**
      * feat: update an answer

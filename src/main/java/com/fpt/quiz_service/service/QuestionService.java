@@ -17,9 +17,10 @@ public interface QuestionService {
      * @param adminId admin's identity
      * @return list of question in a quiz
      */
-    @GetMapping("admins/{adminId}/questions")
+    @GetMapping("/admins/{adminId}/questions")
     List<Question> getAllQuestionByAdmin(@PathVariable Long adminId);
-
+    @GetMapping("/questions/{questionId}")
+    Question getQuestion(@PathVariable UUID questionId);
     @PostMapping("/admins/{adminId}/questions")
     Optional<Question> createQuestion(@PathVariable Long adminId, @RequestBody CreateQuestionRequest request);
 

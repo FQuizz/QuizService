@@ -21,6 +21,7 @@ public class QuizDto {
     private String title;
     private String description;
     private Integer totalQuestion;
+    private Long totalAttempt;
     private Visibility visibility;
     private Long createBy;
     private LocalDateTime createAt;

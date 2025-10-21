@@ -14,6 +14,8 @@ public interface QuestionRepository {
     List<Question> getQuestionsInQuiz(@PathVariable Long id);
     @GetMapping("/get-all-questions/{adminId}")
     List<Question> getAllQuestions(@PathVariable Long adminId);
+    @GetMapping("/get-question/{questionId}")
+    Optional<Question> getQuestion(@PathVariable UUID questionId);
     @PostMapping("/create-question")
     Optional<Question> createQuestion( @RequestBody Question question);
     @PutMapping("/update-question/{questionId}")

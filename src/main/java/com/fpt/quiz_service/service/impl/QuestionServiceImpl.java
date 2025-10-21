@@ -25,6 +25,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Question getQuestion(UUID questionId) {
+        return questionRepository.getQuestion(questionId).get();
+    }
+
+    @Override
     public Optional<Question> createQuestion(Long adminId, CreateQuestionRequest request) {
         Question question = QuestionMapper.INSTANCE.toCreatedQuestion(request);
         question.setCreateBy(adminId);

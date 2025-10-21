@@ -31,7 +31,7 @@ public interface QuizService {
     List<QuizDto> getAllQuizByAdminId(@PathVariable Long adminId);
 
     /**
-     * feat: get a public quiz
+     * feat: get a quiz
      * actor: user, admin
      *
      * @param quizId quiz's identity
@@ -54,13 +54,12 @@ public interface QuizService {
      * feat: create a new quiz
      * actor: admin
      *
-     * @param adminId admin's identity
      * @param request details of the quiz
      * @return a created quiz
      */
 
-    @PostMapping("/admins/{adminId}/quizzes")
-    Optional<QuizDto> createQuiz(@PathVariable Long adminId, @Valid @RequestBody CreateQuizRequest request);
+    @PostMapping("/quizzes")
+    Optional<QuizDto> createQuiz( @Valid @RequestBody CreateQuizRequest request);
 
     /**
      * feat: edit details of the quiz

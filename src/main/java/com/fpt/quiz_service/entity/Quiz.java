@@ -21,6 +21,7 @@ public class Quiz {
     private String description;
     @Builder.Default
     private Integer totalQuestion = 0;
+    private Long totalAttempt;
     @Builder.Default
     private Visibility visibility = Visibility.PUBLIC;
     private Long createBy;

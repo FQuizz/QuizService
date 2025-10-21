@@ -1,6 +1,8 @@
-package com.fpt.quiz_service.entity;
+package com.fpt.quiz_service.dto;
 
-
+import com.fpt.quiz_service.entity.Answer;
+import com.fpt.quiz_service.entity.AttemptStatus;
+import com.fpt.quiz_service.entity.Quiz;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,22 +12,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Attempt {
+public class AttemptDto {
     private Long id;
-    @Builder.Default
-    private UUID attemptId = UUID.randomUUID();
+    private UUID attemptId;
     private String username;
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
-    @Builder.Default
-    private AttemptStatus attemptStatus = AttemptStatus.IN_PROGRESS;
+    private AttemptStatus attemptStatus;
     private LocalDateTime completeAt;
-    @Builder.Default
-    private Long score = 0L;
-    private Quiz quiz;
+    private Long score;
     private List<Answer> answers;
 }

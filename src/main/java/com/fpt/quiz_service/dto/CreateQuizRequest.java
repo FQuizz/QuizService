@@ -19,4 +19,8 @@ public class CreateQuizRequest {
     private String title;
     private String description;
     private Visibility visibility;
+    @NotNull
+    private Long createBy;
+    @NotNull
+    private Long modifiedBy;
 }

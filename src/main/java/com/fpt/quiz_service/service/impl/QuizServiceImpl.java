@@ -59,10 +59,8 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public Optional<QuizDto> createQuiz(Long adminId, CreateQuizRequest request) {
+    public Optional<QuizDto> createQuiz(CreateQuizRequest request) {
         Quiz createdQuiz = QuizMapper.INSTANCE.toCreatedQuiz(request);
-        createdQuiz.setCreateBy(adminId);
-        createdQuiz.setModifiedBy(adminId);
         return quizRepository.createQuiz(createdQuiz)
             .map(QuizMapper.INSTANCE::toQuizDto);
     }
