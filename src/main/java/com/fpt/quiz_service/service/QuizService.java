@@ -18,7 +18,7 @@ public interface QuizService {
      * @return list of quizzes in system
      */
     @GetMapping("/quizzes")
-    List<QuizDto> getAllQuizzes();
+    List<QuizDto> getAllQuizzes(@RequestParam(required = false) UUID lastQuizId);
 
     /**
      * feat: get all quizzes that belong to admin
@@ -29,6 +29,9 @@ public interface QuizService {
      */
     @GetMapping("/admins/{adminId}/quizzes")
     List<QuizDto> getAllQuizByAdminId(@PathVariable Long adminId);
+
+    @GetMapping("/admins/{adminId}/quizzes/report")
+    List<QuizDto> getAllQuizByAdminIdForReport(@PathVariable Long adminId);
 
     /**
      * feat: get a quiz
@@ -78,4 +81,7 @@ public interface QuizService {
      */
     @DeleteMapping("/quizzes/{quizId}")
     void deleteQuiz( @PathVariable UUID quizId);
+
+    @DeleteMapping("/quizzes/{quizId}/questions/{questionId}")
+    void deleteQuestionFromQuiz(@PathVariable UUID quizId, @PathVariable UUID questionId);
 }

@@ -15,7 +15,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class CreateQuizRequest {
-    @NotBlank
     private String title;
     private String description;
     private Visibility visibility;

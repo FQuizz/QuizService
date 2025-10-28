@@ -11,7 +11,7 @@ import java.util.UUID;
 @FeignClient(name = "quizzes", url = "http://localhost:8080")
 public interface QuizRepository {
     @GetMapping("/get-all-public-quizzes")
-    List<Quiz> getAllPublicQuizzes();
+    List<Quiz> getAllPublicQuizzes(@RequestParam(required = false) UUID lastQuizId);
     @GetMapping("/get-all-quizzes/{adminId}")
     List<Quiz> getAllQuizzes(@PathVariable Long adminId);
     @GetMapping("/get-quiz-by-quiz-id/{quizId}")

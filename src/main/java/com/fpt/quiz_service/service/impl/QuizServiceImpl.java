@@ -24,8 +24,8 @@ public class QuizServiceImpl implements QuizService {
     private final QuizRepository quizRepository;
     private final QuestionRepository questionRepository;
     @Override
-    public List<QuizDto> getAllQuizzes() {
-        return quizRepository.getAllPublicQuizzes()
+    public List<QuizDto> getAllQuizzes(UUID lastQuizId) {
+        return quizRepository.getAllPublicQuizzes(lastQuizId)
             .stream()
             .map(QuizMapper.INSTANCE::toQuizDto)
             .toList();
@@ -37,6 +37,13 @@ public class QuizServiceImpl implements QuizService {
             .stream()
             .map(QuizMapper.INSTANCE::toQuizDto)
             .toList();
+    }
+
+    @Override
+    public List<QuizDto> getAllQuizByAdminIdForReport(Long adminId) {
+       return getAllQuizByAdminId(adminId)
+           .stream().filter(quiz -> quiz.getTotalAttempt() > 0)
+           .toList();
     }
 
     @Override
@@ -74,5 +81,12 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void deleteQuiz(UUID quizId) {
         quizRepository.deleteQuiz(quizId);
+    }
+
+    @Override
+    public void deleteQuestionFromQuiz(UUID quizId, UUID questionId) {
+        Optional<Quiz> quiz = quizRepository.getQuizByQuizId(quizId);
+        Optional<Question> question = questionRepository.getQuestion(questionId);
+        quizRepository.deleteQuestion(quiz.get().getId(),question.get().getId());
     }
 }

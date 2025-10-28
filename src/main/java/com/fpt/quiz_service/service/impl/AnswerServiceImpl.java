@@ -27,7 +27,7 @@ record AnswerCalculateResult( Long point, Integer accuracyFactor, AnswerResult r
             }
         }
         AnswerResult result;
-        int accuracyFactor = Math.round(countCorrectAnswer / correctChoiceIds.size() * 100);
+        int accuracyFactor = Math.round((float)countCorrectAnswer / correctChoiceIds.size() * 100);
         switch (accuracyFactor){
             case 100:
                 result = AnswerResult.CORRECT;
