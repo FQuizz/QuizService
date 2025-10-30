@@ -1,12 +1,15 @@
 package com.fpt.quiz_service.service.impl;
 
+import com.fpt.quiz_service.dto.AnswerDto;
 import com.fpt.quiz_service.dto.CreateAnswerRequest;
 import com.fpt.quiz_service.dto.UpdateAnswerRequest;
 import com.fpt.quiz_service.entity.*;
 import com.fpt.quiz_service.infrastructure.AnswerRepository;
 import com.fpt.quiz_service.infrastructure.QuestionRepository;
+import com.fpt.quiz_service.mapper.AnswerMapper;
 import com.fpt.quiz_service.service.AnswerService;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,7 +62,7 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public Optional<Answer> createAnswer( UUID attemptId,  UUID questionId,  List<UUID> choiceIds) {
+    public Optional<AnswerDto> createAnswer(UUID attemptId, UUID questionId, List<UUID> choiceIds) {
         // Check if question exists
         Optional<Question> optionalQuestion = questionRepository.getQuestion(questionId);
         if (optionalQuestion.isEmpty()) return Optional.empty();
@@ -100,7 +103,7 @@ public class AnswerServiceImpl implements AnswerService {
                 .question(question)
                 .choices(selectedChoices)
                 .build()
-        );
+        ).map(AnswerMapper.INSTANCE::toAnswerDto);
     }
 
     @Override

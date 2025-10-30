@@ -1,5 +1,6 @@
 package com.fpt.quiz_service.service;
 
+import com.fpt.quiz_service.dto.AnswerDto;
 import com.fpt.quiz_service.dto.CreateAnswerRequest;
 import com.fpt.quiz_service.dto.UpdateAnswerRequest;
 import com.fpt.quiz_service.entity.Answer;
@@ -38,7 +39,7 @@ public interface AnswerService {
      * @return a created answer
      */
     @PostMapping("/attempts/{attemptId}/answers")
-    Optional<Answer> createAnswer(@PathVariable UUID attemptId, @RequestParam UUID questionId, @RequestParam List<UUID> choiceIds);
+    Optional<AnswerDto> createAnswer(@PathVariable UUID attemptId, @RequestParam UUID questionId, @RequestParam List<UUID> choiceIds);
 
     /**
      * feat: update an answer
