@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { dockerfile true }
 
     tools {
         maven '3.9.11'
@@ -7,9 +7,8 @@ pipeline {
 
     environment {
         REGISTRY = 'https://registry.hub.docker.com'
-        DOCKER_CREDENTIAL_ID = '49b31a3c-d742-4e5a-a1ba-540573b9ecb8'  // Must match ID in Jenkins credentials
         IMAGE_NAME = "khoa47245/quizz-service"
-        TAG = "latest"  // You forgot to define TAG before using it
+        TAG = "latest"
     }
 
     stages {
@@ -25,12 +24,16 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Build Docker Image') {
             steps {
-                withDockerRegistry(credentialsId: '957b531b-32e7-44b2-8260-6ef47e62fd70', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build -t  khoanguyen47245/quizz-server:lastest .'
-                    sh 'docker push khoanguyen47245/quizz-server:lastest'
-                    sh 'docker rmi khoanguyen47245/quizz-server:lastest'
+               docker.build("${IMAGE_NAME}:${TAG}")
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                docker.withDockerRegistry(credentialsId: '957b531b-32e7-44b2-8260-6ef47e62fd70', url: 'https://index.docker.io/v1/') {
+                    docker.push("${IMAGE_NAME}:${TAG}")
                 }
             }
         }
