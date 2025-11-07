@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+          docker {
+              image 'docker:27.0.2-dind'
+              args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
+          }
+     }
 
     tools {
         maven '3.9.11'
