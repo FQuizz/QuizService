@@ -24,16 +24,13 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Push and Push Docker Image') {
             steps {
-               docker.build("${IMAGE_NAME}:${TAG}")
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                docker.withDockerRegistry(credentialsId: '957b531b-32e7-44b2-8260-6ef47e62fd70', url: 'https://index.docker.io/v1/') {
-                    docker.push("${IMAGE_NAME}:${TAG}")
+                script{
+                     withDockerRegistry(credentialsId: '957b531b-32e7-44b2-8260-6ef47e62fd70', url: 'https://index.docker.io/v1/') {
+                         sh "docker build -t ${IMAGE_NAME}:${TAG} ."
+                         sh "docker push ${IMAGE_NAME}:${TAG}"
+                     }
                 }
             }
         }
