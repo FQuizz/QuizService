@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo "Building Docker image using the JAR from target/"
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS}") {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
                         def image = docker.build("${IMAGE_NAME}")
                         image.push()
                         image.push('latest')
