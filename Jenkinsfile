@@ -7,12 +7,7 @@ pipeline {
 
     environment {
         REGISTRY = 'https://registry.hub.docker.com'
-        IMAGE_NAME = "khoa47245/quizz-service"
-        TAG = "latest"
-    }
-
-    stages {
-        stage('Test') {
+        IMAGE_NAME = "khoa47245/quizz-service"tage('Test') {
             steps {
                 sh 'mvn test'
             }
