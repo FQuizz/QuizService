@@ -1,17 +1,12 @@
 pipeline {
-    agent {
-          docker {
-              image 'docker:27.0.2-dind'
-              args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
-          }
-     }
+    agent any
 
     tools {
         maven '3.9.11'
     }
 
     environment {
-        REGISTRY = 'https://index.docker.io/v1/'
+        REGISTRY = 'https://registry.hub.docker.com'
         DOCKER_CREDENTIAL_ID = '49b31a3c-d742-4e5a-a1ba-540573b9ecb8'  // Must match ID in Jenkins credentials
         IMAGE_NAME = "khoa47245/quizz-service"
         TAG = "latest"  // You forgot to define TAG before using it
@@ -30,29 +25,12 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and Push Docker Image') {
             steps {
-                script {
-                    dockerImage = docker.build("${IMAGE_NAME}:${TAG}")
-                }
-            }
-        }
-
-        stage('Push to Docker Hub') {
-            steps {
-                script {
-                    // Use the same variable name (DOCKER_CREDENTIAL_ID) here
-                    docker.withRegistry("${REGISTRY}", "${DOCKER_CREDENTIAL_ID}") {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-
-        stage('Clean Up Local Images') {
-            steps {
-                script {
-                    sh "docker rmi ${IMAGE_NAME}:${TAG} || true"
+                withDockerRegistry(credentialsId: '957b531b-32e7-44b2-8260-6ef47e62fd70', url: 'https://index.docker.io/v1/') {
+                    sh 'docker build -t  khoanguyen47245/quizz-server:lastest .'
+                    sh 'docker push khoanguyen47245/quizz-server:lastest'
+                    sh 'docker rmi khoanguyen47245/quizz-server:lastest'
                 }
             }
         }
