@@ -6,9 +6,7 @@ pipeline {
     }
 
     environment {
-        REGISTRY = 'https://registry.hub.docker.com'
-        IMAGE_NAME = 'khoa47245/quizz-service'
-        TAG = 'latest'
+        DOCKER_CREDENTIALS = credentials('957b531b-32e7-44b2-8260-6ef47e62fd70')
     }
 
     stages {
@@ -24,14 +22,20 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+        stage('Build Docker Image'){
             steps {
-                script {
-                    withDockerRegistry(credentialsId: '957b531b-32e7-44b2-8260-6ef47e62fd70', url: 'https://index.docker.io/v1/') {
-                        sh "docker build -t ${IMAGE_NAME}:${TAG} ."
-                        sh "docker push ${IMAGE_NAME}:${TAG}"
-                    }
-                }
+                sh 'docker build -t khoanguyen47245/quizz-service:latest .'
+            }
+        }
+
+        stage('Login Docker'){
+            steps {
+                sh 'echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Push Docker Image'){
+            steps {
+                sh 'docker push khoanguyen47245/quizz-service:latest'
             }
         }
     }
@@ -39,6 +43,7 @@ pipeline {
     post {
         always {
             echo "Cleaning workspace..."
+            sh 'docker logout'
             cleanWs()
         }
     }
