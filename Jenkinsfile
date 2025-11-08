@@ -4,11 +4,7 @@ pipeline {
     tools {
         maven '3.9.11'
     }
-
-    environment {
-        DOCKER_CREDENTIALS = credentials('957b531b-32e7-44b2-8260-6ef47e62fd70')
-    }
-
+    
     stages {
         stage('Test') {
             steps {
