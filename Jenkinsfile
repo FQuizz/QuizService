@@ -4,9 +4,6 @@ pipeline {
     tools {
         maven '3.9.11'
     }
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('khoanguyen-dockerhub')
-    }
     stages {
         stage('Test') {
             steps {
@@ -28,9 +25,11 @@ pipeline {
 
         stage('Login') {
             steps {
-                sh '''
-                    echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
-                '''
+               withCredentials([usernamePassword(credentialsId: 'khoanguyen-dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
             }
         }
 
