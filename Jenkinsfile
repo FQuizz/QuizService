@@ -44,6 +44,7 @@ pipeline {
     post {
         always {
             echo "Cleaning workspace..."
+            sh 'docker rmi khoanguyen47245/quizz-service'
             sh 'docker logout'
             cleanWs()
         }
