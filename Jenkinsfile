@@ -25,12 +25,6 @@ pipeline {
                 sh 'docker build -t khoanguyen47245/quizz-service:latest .'
             }
         }
-        
-        stage('Login') {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR —-password-stdin'
-            }
-        }
 
         stage('Login') {
             steps {
