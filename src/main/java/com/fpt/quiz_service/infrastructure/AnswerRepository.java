@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-@FeignClient(name = "answers", url = "http://localhost:8080")
+@FeignClient(name = "answers", url = "${adapter.url}")
 public interface AnswerRepository {
     @GetMapping("/get-answers-in-attempt/{attemptId}")
     List<Answer> getAllAnswerInAttempt(@PathVariable UUID attemptId);

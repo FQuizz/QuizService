@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-@FeignClient(name = "attempts", url = "http://localhost:8080")
+@FeignClient(name = "attempts", url = "${adapter.url}")
 public interface AttemptRepository {
     @GetMapping("/get-all-attempts/{quizId}")
     List<Attempt> getAllAttempt(@PathVariable UUID quizId);

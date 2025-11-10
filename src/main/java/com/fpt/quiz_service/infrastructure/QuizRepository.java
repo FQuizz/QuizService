@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@FeignClient(name = "quizzes", url = "http://localhost:8080")
+@FeignClient(name = "quizzes", url = "${adapter.url}")
 public interface QuizRepository {
     @GetMapping("/get-all-public-quizzes")
     List<Quiz> getAllPublicQuizzes(@RequestParam(required = false) UUID lastQuizId);
